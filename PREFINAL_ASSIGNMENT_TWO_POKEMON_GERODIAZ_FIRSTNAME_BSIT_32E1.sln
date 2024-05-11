@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1", "PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1\PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.csproj", "{2DAC92D3-A134-4AF2-8CEC-8BB9D7248BF4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2DAC92D3-A134-4AF2-8CEC-8BB9D7248BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DAC92D3-A134-4AF2-8CEC-8BB9D7248BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DAC92D3-A134-4AF2-8CEC-8BB9D7248BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DAC92D3-A134-4AF2-8CEC-8BB9D7248BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39E679AD-1722-49B7-B19E-721D26517E6F}
+	EndGlobalSection
+EndGlobal
