@@ -143,7 +143,7 @@ a {
     z-index: 0;
 }
 
-#home {
+#home, #browse {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,13 +193,15 @@ a {
 .pokemon2 {
     z-index: 10;
     margin-left: 50%;
-    width: 440px;
+    width: 420px;
     height: 350px;
 }
 
 .pokemon3 {
     z-index: 10;
-    width: 740px;
-    height: 400px;
+    width: 840px;
+    height: 500px;
     margin-top: -30%;
 }
+
+
