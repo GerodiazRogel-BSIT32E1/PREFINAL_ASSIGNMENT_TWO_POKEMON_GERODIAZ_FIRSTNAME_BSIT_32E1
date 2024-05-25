@@ -19,7 +19,6 @@
 
 body {
     background-color: var(--bg-color);
-    color: var(--text-color);
 }
 
 header {
@@ -53,7 +52,6 @@ header {
 }
 .navlist a {
   font-size: var(--p-font);
-  color: var(--text-color);
   font-weight: 500;
   padding: 10px 27px;
 }
@@ -136,4 +134,45 @@ a {
 .dark-mode-toggle img {
   width: 20px;
   height: 20px;
+}
+
+.side-img {
+    width: 200px;
+    margin-left: -35px;
+    margin-right: -35px;
+}
+
+#home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.side-container {
+    margin-right: -30%;
+}
+
+.upper-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.lower-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lower {
+    margin-left: -5%;
+    margin-right: -5%;
+    gap: 0;
 }
