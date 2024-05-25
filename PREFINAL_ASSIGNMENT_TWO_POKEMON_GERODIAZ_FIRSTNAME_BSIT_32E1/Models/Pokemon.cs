@@ -81,4 +81,6 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
         [JsonProperty("front_default")]
         public string? FrontDefault { get; set; }
     }
+
+    
 }

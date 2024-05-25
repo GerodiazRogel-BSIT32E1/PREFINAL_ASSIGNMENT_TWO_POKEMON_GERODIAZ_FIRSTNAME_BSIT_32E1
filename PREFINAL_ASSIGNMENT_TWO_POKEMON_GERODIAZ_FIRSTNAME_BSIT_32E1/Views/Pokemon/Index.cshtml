@@ -48,17 +48,27 @@
         @if (Model?.Pokemons != null)
         {
             <div class="row">
+                @{
+                    int counter = 0;
+                }
                 @foreach (var pokemon in Model.Pokemons)
                 {
+                    if (counter >= 8)
+                    {
+                        break;
+                    }
                     <div class="col-md-3">
-                        <div class="card mb-3" style="width: 18rem;">
+                        <div class="card mb-3" style="width: 18rem; 
+                   background-color: @(counter % 2 == 0 ? "#f8f9fa !important" : "#e9ecef !important"); 
+                   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
                             <img class="card-img-top" src="@pokemon.ImageUrl" alt="Card image cap">
-                            <div class="card-body">
+                            <div class="card-body text-center">
                                 <h5 class="card-title">@pokemon.Name</h5>
                                 <p class="card-text">@pokemon.Description</p>
                             </div>
                         </div>
                     </div>
+                    counter++;
                 }
             </div>
         }
@@ -67,4 +77,13 @@
             <p>No pokemons found.</p>
         }
     </div>
+    <nav aria-label="Page navigation example" style="margin-top: 0;">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
 </section>

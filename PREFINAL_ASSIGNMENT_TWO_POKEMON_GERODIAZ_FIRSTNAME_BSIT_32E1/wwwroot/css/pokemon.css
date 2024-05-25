@@ -143,12 +143,20 @@ a {
     z-index: 0;
 }
 
-#home, #browse {
+#home {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 90vh;
 }
+
+ #browse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 115vh;
+    flex-direction: column;
+ }
 
 .home-container {
     display: flex;
@@ -204,4 +212,8 @@ a {
     margin-top: -30%;
 }
 
+
+.card:hover {
+  scale: 1.1;
+}
 
