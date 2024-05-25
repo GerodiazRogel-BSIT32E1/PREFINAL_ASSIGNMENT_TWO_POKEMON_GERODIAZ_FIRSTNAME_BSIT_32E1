@@ -1,9 +1,11 @@
+using Newtonsoft.Json;
+
 namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
 {
     public class Pokemon
     {
         public string? Name { get; set; }
-
+        public string? Url { get; set; }
         public string? ImageUrl { get; set; }
         public List<PokemonMove>? Moves { get; set; }
         public List<AbilityEntry>? Abilities { get; set; }
@@ -67,5 +69,16 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
     public class HomeViewModel
     {
         public List<Pokemon>? Pokemons { get; set; }
+    }
+
+    public class PokemonDetails
+    {
+        public Sprites? Sprites { get; set; }
+    }
+
+    public class Sprites
+    {
+        [JsonProperty("front_default")]
+        public string? FrontDefault { get; set; }
     }
 }

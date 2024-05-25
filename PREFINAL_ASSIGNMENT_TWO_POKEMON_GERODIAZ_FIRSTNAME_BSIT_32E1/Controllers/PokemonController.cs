@@ -56,16 +56,37 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
-            // Print the responseBody to the console for debugging
-            Console.WriteLine(responseBody);
-
             // Deserialize the responseBody into a PokemonList object
             var pokemonList = JsonConvert.DeserializeObject<PokemonList>(responseBody);
 
-            // Print the pokemonList to the console for debugging
-            Console.WriteLine(JsonConvert.SerializeObject(pokemonList));
+            // Create a new list to store the Pokemon with their ImageUrl
+            var pokemonsWithImageUrl = new List<Pokemon>();
 
-            var model = new HomeViewModel { Pokemons = pokemonList?.Results };
+            // Iterate over the Results and get the ImageUrl of each Pokemon
+            foreach (var pokemon in pokemonList?.Results)
+            {
+                // Make a GET request to the url of the Pokemon
+                HttpResponseMessage pokemonResponse = await _client.GetAsync(pokemon.Url);
+                pokemonResponse.EnsureSuccessStatusCode();
+                string pokemonResponseBody = await pokemonResponse.Content.ReadAsStringAsync();
+
+                // Deserialize the pokemonResponseBody into a Pokemon object
+                var pokemonDetails = JsonConvert.DeserializeObject<PokemonDetails>(
+                    pokemonResponseBody
+                );
+
+                // Create a new Pokemon object and set the ImageUrl
+                var pokemonWithImageUrl = new Pokemon
+                {
+                    Name = pokemon.Name,
+                    ImageUrl = pokemonDetails.Sprites.FrontDefault
+                };
+
+                // Add the Pokemon to the list
+                pokemonsWithImageUrl.Add(pokemonWithImageUrl);
+            }
+
+            var model = new HomeViewModel { Pokemons = pokemonsWithImageUrl };
 
             return View(model);
         }
