@@ -140,6 +140,7 @@ a {
     width: 200px;
     margin-left: -35px;
     margin-right: -35px;
+    z-index: 0;
 }
 
 #home {
@@ -151,13 +152,15 @@ a {
 
 .home-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-
+    margin-top: 50px;
+    z-index: 0;
 }
 
-.side-container {
-    margin-right: -30%;
+.image {
+    position: relative;
+    z-index: 20;
 }
 
 .upper-container {
@@ -175,4 +178,18 @@ a {
     margin-left: -5%;
     margin-right: -5%;
     gap: 0;
+}
+
+.pokemon1 {
+    z-index: 10;
+    margin-left: -50%;
+    width: 470px;
+    height: 300px;
+}
+
+.pokemon2 {
+    z-index: 10;
+    margin-left: 50%;
+    width: 440px;
+    height: 350px;
 }
