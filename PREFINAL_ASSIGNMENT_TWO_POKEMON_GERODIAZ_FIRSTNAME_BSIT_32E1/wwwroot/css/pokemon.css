@@ -2,8 +2,20 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
 }
 
+:root{
+    --bg-color: #f8f8f8;
+    --text-color: #15ce33;
+    --second-color: #a09dab;
+    --main-color: #260e7c;
+    --big-font: 5rem;
+    --h2-font: 3rem;
+    --p-font: 1.1rem;
+    --home-color: gray;
+  }
 
 header{
     position: fixed;
