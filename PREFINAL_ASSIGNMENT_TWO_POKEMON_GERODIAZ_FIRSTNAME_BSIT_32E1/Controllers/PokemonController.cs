@@ -6,7 +6,7 @@ using PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models;
 
 namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controllers
 {
-    [Route("pokemon")]
+    [Route("")]
     public class PokemonController : Controller
     {
         private readonly HttpClient _client;
@@ -47,6 +47,7 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
             return View("Index", pokemonList?.Results);
         }
 
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             HttpResponseMessage response = await _client.GetAsync(
