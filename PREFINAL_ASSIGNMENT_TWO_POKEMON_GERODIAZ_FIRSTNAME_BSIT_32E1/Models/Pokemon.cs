@@ -1,18 +1,17 @@
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
 {
     public class Pokemon
-    {
-        public string? Name { get; set; }
-        public string? Url { get; set; }
-        public string? ImageUrl { get; set; }
-        public List<PokemonMove>? Moves { get; set; }
-        public List<AbilityEntry>? Abilities { get; set; }
-
-        public string? Sprites { get; set; }
-        public string? Description { get; set; }
-    }
+{
+    public string? Name { get; set; }
+    public string? Url { get; set; }
+    public string? ImageUrl { get; set; }
+    public List<PokemonMove>? Moves { get; set; }
+    public List<AbilityEntry>? Abilities { get; set; }
+    public string? Description { get; set; }
+}
 
     public class PokemonList
     {
@@ -81,6 +80,4 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
         [JsonProperty("front_default")]
         public string? FrontDefault { get; set; }
     }
-
-    
 }

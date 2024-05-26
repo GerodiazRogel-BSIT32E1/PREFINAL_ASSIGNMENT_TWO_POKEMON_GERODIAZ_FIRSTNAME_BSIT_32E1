@@ -3,6 +3,10 @@
 @{
     // Assuming you have a list of Pokemon from your model or data source
     List<Pokemon>? pokemons = Model?.Pokemons;
+    int totalItems = pokemons?.Count ?? 0;
+    int itemsPerPage = 8; // Display 8 items per page
+    int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
+    int currentPage = ViewBag.CurrentPage ?? 1; // Default to page 1 if CurrentPage is null
 }
 <section class="home" id="home">
 
@@ -44,21 +48,21 @@
 
 
 <section class="browse" id="browse">
-    <div class="browse-container">
-        @if (Model?.Pokemons != null)
+       <div class="browse-container">
+        @if (pokemons != null)
         {
             <div class="row">
                 @{
                     int counter = 0;
                 }
-                @foreach (var pokemon in Model.Pokemons)
+                @foreach (var pokemon in pokemons)
                 {
-                    if (counter >= 8)
+                    if (counter >= itemsPerPage)
                     {
                         break;
                     }
                     <div class="col-md-3">
-                        <div class="card mb-3" style="width: 18rem; 
+                        <div class="card mb-2" style="width: 18rem; 
                   background-color: @(counter % 3 == 0 ? "#4487cb" : (counter % 3 == 1 ? "#fced22" : "##f1cfcf"));
                    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
                             <img class="card-img-top" src="@pokemon.ImageUrl" alt="Card image cap">
@@ -79,16 +83,17 @@
     </div>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })" tabindex="-1" aria-disabled="@(currentPage == 1 ? "true" : "false")">Previous</a>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item active" aria-current="page">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+                </li>
+            }
+            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">Next</a>
             </li>
         </ul>
     </nav>

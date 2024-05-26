@@ -1,7 +1,11 @@
+using Microsoft.Extensions.DependencyInjection;
+using PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IPokemonService, PokemonService>();
 
 var app = builder.Build();
 

@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models;
+using PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Services;
 
 namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controllers
 {
@@ -10,9 +12,11 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
     public class PokemonController : Controller
     {
         private readonly HttpClient _client;
+        private readonly IPokemonService _pokemonService;
 
-        public PokemonController()
+        public PokemonController(IPokemonService pokemonService)
         {
+            _pokemonService = pokemonService;
             _client = new HttpClient();
         }
 
@@ -63,7 +67,7 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
             var pokemonsWithImageUrl = new List<Pokemon>();
 
             // Iterate over the Results and get the ImageUrl of each Pokemon
-            foreach (var pokemon in pokemonList?.Results)
+            foreach (var pokemon in pokemonList?.Results ?? Enumerable.Empty<Pokemon>())
             {
                 // Make a GET request to the url of the Pokemon
                 HttpResponseMessage pokemonResponse = await _client.GetAsync(pokemon.Url);
@@ -79,7 +83,7 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
                 var pokemonWithImageUrl = new Pokemon
                 {
                     Name = pokemon.Name,
-                    ImageUrl = pokemonDetails.Sprites.FrontDefault
+                    ImageUrl = pokemonDetails?.Sprites?.FrontDefault
                 };
 
                 // Add the Pokemon to the list
@@ -89,6 +93,37 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
             var model = new HomeViewModel { Pokemons = pokemonsWithImageUrl };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            const int itemsPerPage = 8;
+            var allPokemons = await _pokemonService.GetAll(); // Replace with your method to get all Pokemon
+
+            // Calculate the range of Pokemon for the requested page
+            var pagedPokemons = allPokemons
+                .Skip((page - 1) * itemsPerPage)
+                .Take(itemsPerPage)
+                .ToList();
+
+            // Pass the current page number to the view
+            ViewBag.CurrentPage = page;
+
+            return View(pagedPokemons);
+        }
+
+        public async Task<IEnumerable<Pokemon>> GetAll()
+        {
+            HttpResponseMessage response = await _client.GetAsync(
+                "https://pokeapi.co/api/v2/pokemon?limit=1000"
+            );
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the responseBody into a PokemonList object
+            var pokemonList = JsonConvert.DeserializeObject<PokemonList>(responseBody);
+
+            return pokemonList?.Results ?? new List<Pokemon>();
         }
     }
 }
