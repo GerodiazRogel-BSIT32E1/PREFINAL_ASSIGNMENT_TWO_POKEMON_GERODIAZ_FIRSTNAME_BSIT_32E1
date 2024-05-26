@@ -1,0 +1,102 @@
+@model PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models.HomeViewModel
+
+@{
+    int totalItems = Model.TotalCount; // Replace this line
+    int itemsPerPage = 8; // Display 8 items per page
+    int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
+    int currentPage = ViewBag.CurrentPage ?? 1; // Default to page 1 if CurrentPage is null
+    int skipItems = (currentPage - 1) * itemsPerPage; // Items to skip for the current page
+}
+<section class="home" id="home">
+
+    <div class="image">
+        <img class="pokemon2" src="~/pokemon3.png" alt="">
+    </div>
+    <div class="home-container">
+        <div class="upper-container">
+            <img class="side-img animate__animated animate__backInLeft" src="~/2.png" alt="">
+            <img class="side-img animate__animated animate__bounce animate__repeat-3" src="~/3.png" alt="">
+            <img class="side-img animate__animated animate__backInDown" src="~/4.png" alt="">
+            <img class="side-img animate__animated animate__backInDown" src="~/5.png" alt="">
+            <img class="side-img" src="~/6.png" alt="">
+            <img class="side-img animate__animated animate__bounce animate__repeat-3" src="~/7.png" alt="">
+            <img class="side-img animate__animated animate__backInRight" src="~/8.png" alt="">
+        </div>
+
+        <div class="lower-container">
+            <img class="side-img lower" src="~/9.png" alt="">
+            <img class="side-img lower" src="~/10.png" alt="">
+            <img class="side-img lower" src="~/11.png" alt="">
+            <img class="side-img lower" src="~/12.png" alt="">
+            <img class="side-img lower" src="~/13.png" alt="">
+        </div>
+
+        <div class="image">
+            <img class="pokemon3" src="~/pokemon7.png" alt="">
+        </div>
+    </div>
+
+    <div class="image">
+        <img class="pokemon1" src="~/pokemon4.png" alt="">
+    </div>
+
+
+</section>
+
+
+
+
+<section class="browse" id="browse">
+    <div class="browse-container" id="pokemonList">
+       @if (Model.Pokemons != null)
+{
+    <div class="row">
+        @{
+            int counter = 0;
+        }
+        @foreach (var pokemon in Model.Pokemons)
+        {
+            <div class="col-md-3">
+                <div class="card mb-2" style="width: 18rem; 
+              background-color: @(counter % 3 == 0 ? "#4487cb" : (counter % 3 == 1 ? "#fced22" : "##f1cfcf"));
+               box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                    <img class="card-img-top" src="@pokemon.ImageUrl" alt="Card image cap">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@pokemon.Name</h5>
+                        <p class="card-text">@pokemon.Description</p>
+                    </div>
+                </div>
+            </div>
+            counter++;
+        }
+    </div>
+}
+else
+{
+    <p>No pokemons found.</p>
+}
+    </div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" tabindex="-1" aria-disabled="@(ViewBag.CurrentPage == 1 ? "true" : "false")">Previous</a>
+        </li>
+        @{
+            int startPage = Math.Max(ViewBag.CurrentPage - 5, 1);
+            int endPage = Math.Min(startPage + 9, ViewBag.TotalPages);
+        }
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
+            </li>
+        }
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
+            </li>
+        }
+    </ul>
+</nav>
+</section>

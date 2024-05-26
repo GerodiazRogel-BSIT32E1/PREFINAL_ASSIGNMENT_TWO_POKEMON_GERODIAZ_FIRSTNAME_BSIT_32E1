@@ -143,12 +143,20 @@ a {
     z-index: 0;
 }
 
-#home, #browse {
+#home {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 90vh;
 }
+
+ #browse {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 115vh;
+    flex-direction: column;
+ }
 
 .home-container {
     display: flex;
@@ -205,3 +213,15 @@ a {
 }
 
 
+.card:hover {
+  scale: 1.1;
+}
+
+.card-light {
+  background-color: #4487cb;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.card-dark {
+  background-color: #73db69;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
