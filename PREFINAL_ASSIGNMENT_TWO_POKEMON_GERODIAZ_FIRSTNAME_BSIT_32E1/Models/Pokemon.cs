@@ -66,9 +66,10 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models
     }
 
     public class HomeViewModel
-    {
-        public List<Pokemon>? Pokemons { get; set; }
-    }
+{
+    public List<Pokemon>? Pokemons { get; set; }
+    public int TotalCount { get; set; } // Add this line
+}
 
     public class PokemonDetails
     {

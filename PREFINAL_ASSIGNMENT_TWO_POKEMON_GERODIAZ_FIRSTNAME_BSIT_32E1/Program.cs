@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IPokemonService, PokemonService>();
+builder.Services.AddMemoryCache(); // Add this line
 
 var app = builder.Build();
 

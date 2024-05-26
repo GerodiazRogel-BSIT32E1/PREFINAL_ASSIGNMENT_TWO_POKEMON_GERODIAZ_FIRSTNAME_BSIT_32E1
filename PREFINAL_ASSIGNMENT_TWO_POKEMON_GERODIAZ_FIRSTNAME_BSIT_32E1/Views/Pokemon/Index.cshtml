@@ -1,12 +1,11 @@
 @model PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Models.HomeViewModel
 
 @{
-    // Assuming you have a list of Pokemon from your model or data source
-    List<Pokemon>? pokemons = Model?.Pokemons;
-    int totalItems = pokemons?.Count ?? 0;
+    int totalItems = Model.TotalCount; // Replace this line
     int itemsPerPage = 8; // Display 8 items per page
     int totalPages = (int)Math.Ceiling((double)totalItems / itemsPerPage);
     int currentPage = ViewBag.CurrentPage ?? 1; // Default to page 1 if CurrentPage is null
+    int skipItems = (currentPage - 1) * itemsPerPage; // Items to skip for the current page
 }
 <section class="home" id="home">
 
@@ -48,53 +47,56 @@
 
 
 <section class="browse" id="browse">
-       <div class="browse-container">
-        @if (pokemons != null)
-        {
-            <div class="row">
-                @{
-                    int counter = 0;
-                }
-                @foreach (var pokemon in pokemons)
-                {
-                    if (counter >= itemsPerPage)
-                    {
-                        break;
-                    }
-                    <div class="col-md-3">
-                        <div class="card mb-2" style="width: 18rem; 
-                  background-color: @(counter % 3 == 0 ? "#4487cb" : (counter % 3 == 1 ? "#fced22" : "##f1cfcf"));
-                   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
-                            <img class="card-img-top" src="@pokemon.ImageUrl" alt="Card image cap">
-                            <div class="card-body text-center">
-                                <h5 class="card-title">@pokemon.Name</h5>
-                                <p class="card-text">@pokemon.Description</p>
-                            </div>
-                        </div>
-                    </div>
-                    counter++;
-                }
-            </div>
+    <div class="browse-container">
+       @if (Model.Pokemons != null)
+{
+    <div class="row">
+        @{
+            int counter = 0;
         }
-        else
+        @foreach (var pokemon in Model.Pokemons)
         {
-            <p>No pokemons found.</p>
+            <div class="col-md-3">
+                <div class="card mb-2" style="width: 18rem; 
+              background-color: @(counter % 3 == 0 ? "#4487cb" : (counter % 3 == 1 ? "#fced22" : "##f1cfcf"));
+               box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+                    <img class="card-img-top" src="@pokemon.ImageUrl" alt="Card image cap">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@pokemon.Name</h5>
+                        <p class="card-text">@pokemon.Description</p>
+                    </div>
+                </div>
+            </div>
+            counter++;
         }
     </div>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item @(currentPage == 1 ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage - 1 })" tabindex="-1" aria-disabled="@(currentPage == 1 ? "true" : "false")">Previous</a>
+}
+else
+{
+    <p>No pokemons found.</p>
+}
+    </div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        <li class="page-item @(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" tabindex="-1" aria-disabled="@(ViewBag.CurrentPage == 1 ? "true" : "false")">Previous</a>
+        </li>
+        @{
+            int startPage = Math.Max(ViewBag.CurrentPage - 5, 1);
+            int endPage = Math.Min(startPage + 9, ViewBag.TotalPages);
+        }
+        @for (int i = startPage; i <= endPage; i++)
+        {
+            <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
             </li>
-            @for (int i = 1; i <= totalPages; i++)
-            {
-                <li class="page-item @(i == currentPage ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("Index", new { page = i })">@i</a>
-                </li>
-            }
-            <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
-                <a class="page-link" href="@Url.Action("Index", new { page = currentPage + 1 })">Next</a>
+        }
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>
             </li>
-        </ul>
-    </nav>
+        }
+    </ul>
+</nav>
 </section>
