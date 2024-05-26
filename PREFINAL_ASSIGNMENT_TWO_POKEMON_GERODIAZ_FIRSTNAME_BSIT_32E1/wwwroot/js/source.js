@@ -14,3 +14,16 @@ toggle.addEventListener("click", () => {
     toggle.src = originalSrc;
   }
 });
+
+
+// $(document).on('click', '.page-link', function(e) {
+//   e.preventDefault();
+
+//   $.ajax({
+//       url: $(this).attr('href'),
+//       type: 'GET',
+//       success: function(data) {
+//           $('#pokemonList').html(data);
+//       }
+//   });
+// });

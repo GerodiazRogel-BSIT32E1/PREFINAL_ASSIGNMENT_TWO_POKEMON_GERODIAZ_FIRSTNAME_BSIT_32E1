@@ -90,10 +90,19 @@ namespace PREFINAL_ASSIGNMENT_TWO_POKEMON_GERODIAZ_FIRSTNAME_BSIT_32E1.Controlle
                 pokemonsWithImageUrl.Add(pokemonWithImageUrl);
             }
 
-            var model = new HomeViewModel { Pokemons = pokemonsWithImageUrl, TotalCount = pokemonList?.Count ?? 0 };
+            var model = new HomeViewModel
+            {
+                Pokemons = pokemonsWithImageUrl,
+                TotalCount = pokemonList?.Count ?? 0
+            };
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages; // Pass the total number of pages to the view
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView(model);
+            }
 
             return View(model);
         }
